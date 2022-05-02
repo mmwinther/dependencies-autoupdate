@@ -27,8 +27,8 @@ jobs:
       uses: NobodyXu/dependencies-autoupdate@v1
       with: 
         token: ${{ secrets.GITHUB_TOKEN }}
-        update-command: "'go get -u && go mod tidy && go build'"
-        update-path: "'./test/go'" #optional
+        update-command: "go get -u && go mod tidy && go build"
+        update-path: "./test/go" #optional
 ```
 
 It is recommended to use this action on a [schedule trigger](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onschedule) at a fixed cadence, but it can be used on other triggers as well. Just note GitHub has limitations on default GITHUB_TOKEN access from forks.
