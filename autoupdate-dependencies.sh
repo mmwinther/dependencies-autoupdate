@@ -85,7 +85,7 @@ then
     git commit -a -m "Auto-updated dependencies" --signoff
     
     # push the changes
-    git push authenticated -f
+    git push authenticated -f -u origin HEAD
 
     echo "https://api.github.com/repos/$repo/pulls"
 
