@@ -39,10 +39,9 @@ fi
 # fetch first to be able to detect if branch already exists
 git fetch
 
-branch_exists=$(git branch --list $branch_name)
 
 # branch already exists, previous opened PR was not merged
-if [ -z "$branch_exists" ]; then
+if [ -z "$(git branch --list $branch_name)" ]; then
     # create new branch
     git checkout -b $branch_name
 else
@@ -52,10 +51,6 @@ else
     echo "Check out branch instead"
     git checkout $branch_name
     git pull
-
-    # reset with latest from the default branch
-    # this avoids merge conflicts when existing changes are not merged
-    git reset --hard "origin/$default_branch_name"
 fi
 
 echo "Running update command $update_command"
