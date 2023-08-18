@@ -59,7 +59,7 @@ eval "$update_command"
 if git --no-pager diff | grep diff; then
     echo "Updates detected"
 
-    if [[ -z $NO_GIT_CONFIG_CHANGE ]]; then
+    if [[ -z ${NO_GIT_CONFIG_CHANGE+x} ]]; then
         # configure git authorship
         git config --global user.email $email
         git config --global user.name "$username"
