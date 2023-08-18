@@ -71,7 +71,7 @@ then
 
     # Only add the remote if it doesn't already exist
     case "$remote_name" in
-            *$(git remote)*)
+            *"$(git remote)"*)
         echo "Adding remote $remote_name"
         # format: https://[username]:[token]@github.com/[organization]/[repo].git
         git remote add "$remote_name" "https://$username:$token@github.com/$repo.git"
