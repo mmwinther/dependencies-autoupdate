@@ -88,7 +88,7 @@ then
     git add -A
 
     # commit the changes
-    git commit -a -m "Update dependencies" --signoff
+    git commit -a -m ":arrow_up: Update dependencies" --signoff
 
     # push the changes
     git push "$remote_name" -f -u
