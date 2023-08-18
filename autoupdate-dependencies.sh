@@ -56,22 +56,25 @@ fi
 echo "Running update command $update_command"
 eval "$update_command"
 
-if  [ "$(git diff)" ]
-then
+if git --no-pager diff | grep diff; then
     echo "Updates detected"
 
-    # configure git authorship
-    git config --global user.email $email
-    git config --global user.name "$username"
+    if [ -z "$NO_GIT_CONFIG_CHANGE" ]; then
+        # configure git authorship
+        git config --global user.email $email
+        git config --global user.name "$username"
+    else
+        echo "NO_GIT_CONFIG_CHANGE was set, not modifying .gitconfig"
+    fi
 
     # Only add the remote if it doesn't already exist
-    case "$remote_name" in
-            *"$(git remote)"*)
+    if [[ $(git remote) == *$remote_name* ]]; then
+        echo "Remote already exists, skipping adding it."
+    else
         echo "Adding remote $remote_name"
         # format: https://[username]:[token]@github.com/[organization]/[repo].git
         git remote add "$remote_name" "https://$username:$token@github.com/$repo.git"
-        ;;
-    esac
+    fi
 
     # execute command to run when changes are deteced, if provided
     on_changes_command_value=${on_changes_command%?}
